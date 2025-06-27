@@ -14,127 +14,144 @@
 1. **Checked firewall status:**
    ```bash
    sudo ufw status verbose
-Result: Status: inactive
+   ```
+   - Result: `Status: inactive`
 
-Allowed SSH port 22:
+2. **Allowed SSH port 22:**
+   ```bash
+   sudo ufw allow 22
+   ```
+   - Rule added (IPv4 and IPv6)
 
-bash
-Copy
-Edit
-sudo ufw allow 22
-Rule added (IPv4 and IPv6)
+3. **Enabled firewall:**
+   ```bash
+   sudo ufw enable
+   ```
+   - Result: Firewall activated and enabled on startup
 
-Enabled firewall:
+4. **Verified active rules:**
+   ```bash
+   sudo ufw status verbose
+   ```
+   - SSH (port 22) allowed
 
-bash
-Copy
-Edit
-sudo ufw enable
-Result: Firewall activated and enabled on startup
+5. **Denied SSH port 22:**
+   ```bash
+   sudo ufw deny 22
+   ```
+   - Rule updated to block SSH traffic
 
-Verified active rules:
+6. **Disabled firewall:**
+   ```bash
+   sudo ufw disable
+   ```
+   - Result: Firewall stopped and disabled on startup
 
-bash
-Copy
-Edit
-sudo ufw status verbose
-SSH (port 22) allowed
+---
 
-Denied SSH port 22:
+### ✅ Session 2: Blocking and Unblocking Telnet (Port 23)
 
-bash
-Copy
-Edit
-sudo ufw deny 22
-Rule updated to block SSH traffic
+#### Steps Performed:
 
-Disabled firewall:
+1. **Checked firewall status:**
+   ```bash
+   sudo ufw status verbose
+   ```
+   - Result: `Status: inactive`
 
-bash
-Copy
-Edit
-sudo ufw disable
-Result: Firewall stopped and disabled on startup
+2. **Allowed Telnet port 23 (for testing):**
+   ```bash
+   sudo ufw allow 23
+   ```
+   - Rule added (IPv4 and IPv6)
 
-✅ Session 2: Blocking and Unblocking Telnet (Port 23)
-Steps Performed:
-Checked firewall status:
+3. **Enabled firewall:**
+   ```bash
+   sudo ufw enable
+   ```
+   - Result: Firewall activated
 
-bash
-Copy
-Edit
-sudo ufw status verbose
-Result: Status: inactive
+4. **Verified active rules:**
+   ```bash
+   sudo ufw status verbose
+   ```
+   - Port 23 allowed, port 22 denied
 
-Allowed Telnet port 23 (for testing):
+5. **Denied Telnet port 23:**
+   ```bash
+   sudo ufw deny 23
+   ```
+   - Blocked inbound Telnet traffic
 
-bash
-Copy
-Edit
-sudo ufw allow 23
-Rule added (IPv4 and IPv6)
+6. **Verified updated rules:**
+   ```bash
+   sudo ufw status verbose
+   ```
+   - Ports 22 and 23 both denied
 
-Enabled firewall:
+7. **Disabled firewall:**
+   ```bash
+   sudo ufw disable
+   ```
+   - Result: Firewall stopped and disabled
 
-bash
-Copy
-Edit
-sudo ufw enable
-Result: Firewall activated
+8. **Removed deny rule for port 23:**
+   ```bash
+   sudo ufw delete deny 23
+   ```
+   - Rule deleted successfully
 
-Verified active rules:
+9. **Verified current status:**
+   ```bash
+   sudo ufw status verbose
+   ```
+   - Firewall inactive, no deny rule on port 23
 
-bash
-Copy
-Edit
-sudo ufw status verbose
-Port 23 allowed, port 22 denied
+---
 
-Denied Telnet port 23:
+### 📝 Summary:
 
-bash
-Copy
-Edit
-sudo ufw deny 23
-Blocked inbound Telnet traffic
+- Demonstrated basic firewall management using UFW on Parrot OS.
+- Safely allowed and denied critical ports (SSH - 22, Telnet - 23).
+- Used UFW to test, verify, and clean up firewall rules.
+- Learned key skills in configuring and managing Linux firewall rules.
 
-Verified updated rules:
+---
 
-bash
-Copy
-Edit
-sudo ufw status verbose
-Ports 22 and 23 both denied
+## 🧠 Revision Notes
 
-Disabled firewall:
+### 1. Firewall Basics:
+- Firewall monitors and controls incoming/outgoing network traffic.
+- UFW is a simple front-end for managing firewall rules on Linux.
 
-bash
-Copy
-Edit
-sudo ufw disable
-Result: Firewall stopped and disabled
+### 2. Common Commands:
+```bash
+sudo ufw status verbose      # Check status
+sudo ufw allow <port>        # Allow port
+sudo ufw deny <port>         # Deny port
+sudo ufw enable              # Enable firewall
+sudo ufw disable             # Disable firewall
+sudo ufw delete deny <port>  # Delete rule
+```
 
-Removed deny rule for port 23:
+### 3. Important Steps:
+- Always allow SSH (port 22) before enabling UFW to avoid lockout.
+- Use 'sudo ufw status verbose' to verify rules and status.
+- Block unnecessary or insecure ports like Telnet (port 23).
+- Use IPv4 and IPv6 rules as required.
 
-bash
-Copy
-Edit
-sudo ufw delete deny 23
-Rule deleted successfully
+### 4. Default Policies:
+- Incoming traffic default: deny
+- Outgoing traffic default: allow
 
-Verified current status:
+### 5. Testing Firewall Rules:
+- After adding rules, test connectivity (e.g., telnet or ssh).
+- Remove or update rules as needed to restore original state.
 
-bash
-Copy
-Edit
-sudo ufw status verbose
-Firewall inactive, no deny rule on port 23
+### 6. Key Learnings:
+- How to enable/disable UFW safely.
+- Managing firewall rules to control network traffic.
+- Understanding the difference between allow and deny rules.
+- Importance of firewall in network security.
 
-📝 Summary:
-Demonstrated basic firewall management using UFW on Parrot OS.
-
-Safely allowed and denied critical ports (SSH - 22, Telnet - 23).
-
-Used UFW to test, verify, and clean up firewall rules.
-
-Learned key skills in configuring and managing Linux firewall rules.
+> 💡 Always backup firewall settings before making changes.
